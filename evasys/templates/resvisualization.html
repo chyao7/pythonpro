@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>结果可视化</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css" />
+    <script src="/static/js/echarts.min.js"></script>
+</head>
+<body>
+    <div style="width: 80%;margin: 0px auto";>
+        <h1 style="text-align: center">绩效评价结果</h1>
+    </div>
+
+{#    <div class="container" style="">#}
+{#        <button id = "download-paper" class="btn btn-default" style="position: absolute;top:50px;right: 30px">下载为PDF文件</button>#}
+{#    </div>#}
+
+
+    <div style="width: 80%;margin: 30px auto";>
+
+
+        <div style="width:90% ;margin:0 auto">
+
+             <ul id="myTab" class="nav nav-tabs">
+                <li class="active">
+                    <a href="#chart1" data-toggle="tab">二级指标评价得分</a>
+                </li>
+                <li>
+                    <a href="#chart2" data-toggle="tab">一级指标评价得分</a>
+                </li>
+                 <li>
+                    <a href="#chart3" data-toggle="tab">综合评价得分</a>
+                </li>
+             </ul>
+            <div style="margin-top: 50px">
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade in active" id="chart1">
+                        {{ myechart1|safe }}
+                    </div>
+
+                    <div class="tab-pane fade" id="chart2">
+                        {{ myechart2|safe }}
+                    </div>
+
+                    <div class="tab-pane fade" id="chart3">
+                        {{ myechart3|safe }}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+
+
+    </div>
+    </div>
+
+
+
+
+
+
+
+
+<script src="/static/js/echarts.common.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/html2canvas.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/js/jspdf.debug.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/js/renderPDF.js" type="text/javascript" charset="utf-8"></script>
+<script src="/static/js/paper_download.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	$(function () {
+		$('#myTab li:eq(0) a').tab('show');
+	});
+</script>
+
+
+
+
+
+</body>
+</html>

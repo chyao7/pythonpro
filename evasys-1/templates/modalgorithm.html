@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html >
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>企业信息化绩效评价系统</title>
+	<link href="/static/css/moddescribe.css" rel="stylesheet" />	
+</head>
+<body>
+	<div>
+		<div class="top1">
+			<p>模型算法</p>
+			<div class="top2">
+				<span>当前位置：</span>
+				<a href="">首页</a>
+				<span >></span>
+				<a href="">模型描述</a>
+				<span >></span>
+				<a href="">模型算法</a>
+			</div>
+		</div>
+	<div class="middle1">
+		<p>基于企业信息化绩效评价问题，我们采用可拓学中的可拓优度评价法作为评价方法。它是一种定性与定量相结合的评价方法，该方法允许评价指标既可以为定量指标也可以为定性指标，使得评价过程灵活易用。另外，该方法不仅可以对待评对象进行部分评价，也可以对待评对象的整体进行评价。同时该方法利用关联函数确定的关联度，衡量了企业信息化绩效所隶属的评价等级，并可以对属于同一等级内不同企业的信息化绩效进行比较。我们以求解一级指标企业战略c<sub>11</sub>的绩效值为例，该方法的具体评价步骤如下：</p>
+		<span class="middle2">
+			<p class="text1">1.确定评价指标体系</p>
+			<p>评价一个对象，如果没有评价标准，那么评价就没有依据，也就无法辨别评价结果的优劣，因此，需要确定待评对象的评价指标。一级指标企业战略c<sub>11</sub>所属二级指标分别为企业战略一致性c<sub>111</sub>、信息化的迫切性c<sub>112</sub>、信息化领导力c<sub>113</sub>。</p>
+		</span>
+		<span class="middle2">
+			<p class="text1">2.收集并处理指标数据</p>
+			<p>为了获取各指标变量的值，为企业信息化绩效评价提供数据支撑，以企业信息化绩效评估指标为依据，对于可直接获取的数据，可从系统中直接抓取；对于不能直接获取的数据，可从系统中抓取关联数据进行变化、换算等转化工作，获取指标数据值。然后对各指标数据进行归一化处理，得到企业信息化各指标的实际取值。具体地，我们得到二级指标企业战略一致性c<sub>111</sub>、信息化的迫切性c<sub>112</sub>、信息化领导力c<sub>113</sub>的归一化标准值分别为v<sub>111</sub>、v<sub>112</sub>、v<sub>113</sub>。</p>
+		</span>
+		<span class="middle2">
+			<p class="text1">3.确定指标经典域和节域</p>
+			<p>确定各评价指标关于各等级的经典域区间和指标取值范围的节域区间。我们假设当前一级指标有 t 个等级，经典域表示各指标关于某一特定评价等级时的取值范围，可由行业规范、专家经验等给出；节域表示指标实际可取值的区间范围，可以简单地认为是各个经典域的并集。由此，得到二级指标c<sub>111</sub>、c<sub>112</sub>、c<sub>113</sub>的经典域、节域如下：</p>
+			<div><img src="/static/img/3-1.jpg"></div>
+		<span class="middle2">
+			<p class="text1">4.确定指标权重</p>
+			<p>评价指标集中的各评价指标有轻有重，用权重代表各评价指标的相对重要性程度。为了更加科学准确地计算出各评价指标的权重，我们提供了可拓优度法、熵权法、层次分析法以及组合法等各种方法来确定评价指标的权重。我们得到二级指标c<sub>111</sub>、c<sub>112</sub>、c<sub>113</sub>的权重分别为α<sub>111</sub>、α<sub>112</sub>、α<sub>113</sub>。</p>
+		</span>
+		<span class="middle2">
+			<p class="text1">5.建立关联函数与计算关联度</p>
+			<p>首先引入可拓距的概念，设x0是实轴上的任意点，X=<a,b>是实域R上的任意区间，称</p>
+			<div><img src="/static/img/5-1.jpg"></div>
+			<p>为点x_0区间X之间的可拓距。取值为负表明点在区间内，具体的数值表示点在区间中的位置。</p>
+			<p>以二级指标c<sub>111</sub>为例，其归一化标准值分别为v<sub>111</sub>，等级j(j=1,2…t)的经典域 ，节域 ，V<sub>j</sub>⊂V，当V<sub>j</sub>与V有公共端点v<sub>z</sub>时，若v<sub>111</sub>≠v<sub>z</sub>，则指标c<sub>11</sub>1关于等级j的关联函数为：</p>
+			<div><img src="/static/img/5-2.jpg"></div>
+			<p>其中，D(v<sub>111</sub>,V<sub>j</sub>,V)= ρ(v<sub>111</sub>,V)- ρ(v<sub>111</sub>,V<sub>j</sub> )。</p>
+			<p>当V<sub>j</sub>与V无公共端点v<sub>z</sub>时，则指标c<sub>111</sub>关于等级j的关联函数为：</p>
+			<div><img src="/static/img/5-3.jpg"></div>
+			<p>其中，D(v<sub>111</sub>,V<sub>j</sub>,V)= ρ(v<sub>111</sub>,V)- ρ(v<sub>111</sub>,V<sub>j</sub> )。</p>
+			<p>关联函数计算公式是由评价指标实际值和评价指标当前所处的评价等级共同决定的，通过建立关联函数计算出各评价指标关于各评价等级的关联度，反应了评价指标隶属于某评价等级的程度，如果关联度大于零，说明该评价指标属于此评价等级，如果关联度小于零，说明该评价指标不在此评价等级内。由此，我们得到二级指标c<sub>111</sub>关于各等级的关联度K<sub>j</sub> (v<sub>111</sub>)，j=1,2…t。</p>
+		</span>
+		<span class="middle2">
+			<p class="text1">6.计算综合关联度</p>
+			<p>若待评价对象关于各个评价指标的关联度已经计算出来，则对其进行归一化处理，令</p>
+			<div><img src="/static/img/6-1.jpg"></div>
+			<p>其中，K<sub>j</sub> (v<sub>111</sub>)表示二级指标c<sub>11</sub>1关于评价等级 j 的关联度。</p>
+			<p>同理，重复上述步骤，可分别得到二级指标c<sub>112</sub> 、c<sub>113</sub>关于评价等级 j 的关联度K<sub>j</sub> (v<sub>112</sub> )、K<sub>j</sub> (v<sub>113</sub> )，j=1,2…t。</p>
+			<p>随后计算一级指标c<sub>11</sub>关于各评价等级的综合关联度，其计算公式为：</p>
+			<div><img src="/static/img/6-2.jpg"></div>
+			<p>其中，α<sub>11i</sub>表示指标c<sub>11i</sub>的权重。</p>
+		</span>
+		<span class="middle2">			
+				<p class="text1">7.确定该级指标的评价等级</p>
+					<p>根据上一步骤求解得到的待评价对象关于等级t的综合关联度之后，若待评价对象的综合关联度为</p><div><img src="/static/img/7-1.jpg"></div><p>，那么该评价绩效评价等级为：j*级。</p>
+		</span>
+		<span class="middle2">
+				<p class="text1">8.确定下一级指标的量值</p><p>由步骤6），得到一级指标c<sub>11</sub>关于评价等级 j 的关联度K<sub>j</sub> (v<sub>11</sub> )，j=1,2…t，且0≤K<sub>j</sub> (v<sub>11</sub> )≤1。其中K<sub>j* </sub> (v<sub>11</sub> )=max⁡(K<sub>j </sub>(v<sub>11</sub> ))</p>
+				<p>我们已知一级指标c<sub>11</sub>所属的评价等级为j^*级，则一级指标c<sub>11</sub>的量值v<sub>11</sub> ϵV_(j^* )，且我们已知一级指标c<sub>11</sub>关于该等级的综合关联度K<sub>j* </sub>(v<sub>11</sub> )，则根据关联函数公式当v<sub>11</sub> ϵV<sub>j* </sub>时，</p><div><img src="/static/img/8-1.jpg"></div>
+				<p>求得v<sub>11</sub>。</p>
+				<p>①当V<sub>j</sub>与V有公共端点时，即j=1或t，我们以j=1为例。我们画出非线性函数y=ρ(x,V<sub>1</sub> )/(D(x,V<sub>1</sub>,V)+a<sub>111</sub>-b<sub>111</sub>)   x∈V<sub>1</sub>且V<sub>1</sub>=[0,2]的图像，如图所示：</p>
+				<div><img src="/static/img/8-2.jpg"></div>
+				<p>如图所示，x∈[0,2]时，函数y=ρ(x,V<sub>1</sub> )/(D(x,V<sub>1</sub>,V)+a<sub>11</sub>1-b<sub>111</sub>)的取值范围为[0,0.5]，而K<sub>j</sub> (v<sub>11</sub> )∈[0,1]。因此我们先将K<sub>1</sub> (v<sub>11</sub> )与函数y=ρ(x,V<sub>1</sub> )/(D(x,V<sub>1</sub>,V)+a<sub>11</sub>1-b<sub>111</sub>)的取值范围对应，令K<sub>1</sub>' (v<sub>11</sub> )=0.5*K<sub>1</sub> (v<sub>11</sub> )，然后代入关联函数公式，即0.5*K<sub>1</sub> (v<sub>11</sub> )=ρ(v<sub>11</sub>,V<sub>1</sub> )/(D(v<sub>11</sub>,V<sub>1</sub>,V)+a<sub>11</sub>1-b<sub>111</sub>)，求得v<sub>11</sub>。若K<sub>2</sub> (v<sub>11</sub> )≤0.5，则表明一级指标c<sub>11</sub>距离等级2较远，则取v<sub>11</sub>∈[0,1]；若K<sub>2</sub> (v<sub>11</sub> )>0.5，则表明一级指标c<sub>11</sub>距离等级2较近，则取v<sub>11</sub>∈(1,2]。</p>
+				<p>②当V<sub>j</sub>与V无公共端点时，即j=2,3…t-1，我们以j=2为例</p>
+				<p>我们画出非线性函数y=ρ(x,V<sub>2</sub> )/(D(x,V<sub>2</sub>,V)+a<sub>112</sub>-b<sub>112</sub> )   x∈V<sub>2</sub>且V<sub>2</sub>=[2,4]的图像，如图所示:</p>
+				<div><img src="/static/img/8-3.jpg"></div>
+				<p>如图所示，x∈[2,4]时，函数y=ρ(x,V<sub>2</sub> )/(D(x,V<sub>2</sub>,V)+a<sub>112</sub>-b<sub>112</sub> )的取值范围为[0,0.25]，而K<sub>j</sub> (v<sub>11</sub> )∈[0,1]。因此我们先将K<sub>2</sub> (v<sub>11</sub> )与函数y=ρ(x,V<sub>2</sub> )/(D(x,V<sub>2</sub>,V)+a<sub>112</sub>-b<sub>112</sub> )的取值范围对应，令K<sub>2</sub>' (v<sub>11</sub> )=0.25*K<sub>2</sub> (v<sub>11</sub> )，然后代入关联函数公式，即0.25*K<sub>2</sub> (v<sub>11</sub> )=ρ(x,V<sub>2</sub> )/(D(x,V<sub>2</sub>,V)+a<sub>112</sub>-b<sub>112</sub> )，求得v<sub>11</sub>。若K<sub>1</sub> (v<sub>11</sub> )≤K_3 (v<sub>11</sub> )，则表明一级指标c<sub>11</sub>距离等级3较近，则取v<sub>11</sub>∈[3,4]；若K<sub>1</sub> (v<sub>11</sub> )>K_3 (v<sub>11</sub> )，则表明一级指标c<sub>11</sub>距离等级1较近，则取v<sub>11</sub>∈[2,3)。</p>
+				
+				<p class="text1">9.计算企业信息化全过程的综合得分</p><p>将第8）步获取的上一层指标的输入量值，循环第3）-8）步骤，循环迭代至最上层指标，确定企业信息化绩效整体综合得分和评价等级。</p>
+			</ul>
+	</div>
+ </body>
+</html>

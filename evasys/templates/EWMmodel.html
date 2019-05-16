@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html >
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>企业信息化绩效评价系统</title>
+	<link href="/static/css/moddescribe.css" rel="stylesheet" />	
+</head>
+<body>
+	<div>
+		<div class="top1">
+			<p>模型与算法</p>
+			<div class="top2">
+				<span>当前位置：</span>
+				<a href="">首页</a>
+				<span >></span>
+				<a href="">权重算法描述</a>
+				<span >></span>
+				<a href="">熵权法</a>
+				<span >></span>
+				<a href="">模型与算法</a>
+			</div>
+		</div>
+		<div class="middle1">
+			<p>（1）假设有m个待评价指标，对应n个评价指标量值，那么原始数据矩阵为：</p>
+			<img src="/static/img/w-5.jpg">
+			<p>（2）将原始数据进行归一化，得到标准化后的矩阵：</p>
+				<img src="/static/img/w-7.jpg">
+				<p>（3）计算第j项指标下第i样本指标值的比重：</p>
+				<img src="../static/img/w-8.jpg">
+				<p>（4）计算第j项指标的熵值e<sub>j</sub>和信息效用值d<sub>j</sub>：</p>
+				<img src="/static/img/w-9.jpg">
+				<p>上式中，常数k与样本数量m有关。对于一个完全无序的系统, 即信息均匀分布时,有序度为零，熵值最大，即e<sub>j</sub>=1，p<sub>ij</sub>=1/m。此时有</p>
+				<img src="/static/img/w-10.jpg">
+				<p>于是得到： k=1/lnm，故有：</p>
+				<img src="/static/img/w-11.jpg">
+				<p>（5）计算第j项指标的权重w<sub>j</sub>（熵权）</p>
+				<img src="../static/img/w-12.jpg">
+				<p>即指标信息效用值越大,重要性就越大,权重也就越大。</p>
+				<p>最终得到权重向量：</p>
+				<img src="/static/img/w-13.jpg">
+		</div>
+	</div>
+<script type="text/javascript" src="/static/js/jquery.js"></script>
+<script type="text/javascript" src="/static/js/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="/static/js/easyui-lang-zh_CN.js" ></script>
+</body>
+</html>

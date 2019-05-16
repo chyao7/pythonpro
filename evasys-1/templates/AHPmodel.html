@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html >
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>企业信息化绩效评价系统</title>
+	<link href="/static/css/moddescribe.css" rel="stylesheet" />	
+</head>
+<body>
+	<div>
+		<div class="top1">
+			<p>模型与算法</p>
+			<div class="top2">
+				<span>当前位置：</span>
+				<a href="">首页</a>
+				<span >></span>
+				<a href="">权重算法描述</a>
+				<span >></span>
+				<a href="">层次分析法</a>
+				<span >></span>
+				<a href="">模型与算法</a>
+			</div>
+		</div>
+		<div class="middle1">
+			<p>（1）构造判断矩阵</p>
+				<p>层次结构反映了准则之间的关系，但准则层中的各准则在目标衡量中所占的比重在不同决策者的心中并不一定完全一致</p>
+				<p>若比较n个因子X={x<sub>1</sub>,...,x<sub>n</sub>}对某因素Z的影响大小，对因子间进行两两比较建立成对比较矩阵。即每次取两个因子x<sub>i</sub>和x<sub>j</sub>，以a<sub>ij</sub>表示x<sub>i</sub>和x<sub>j</sub>对Z的影响大小之比，那么A=(a<sub>ij</sub>)<sub>nxn</sub>为Z-X之间的判断矩阵。关于如何确定a<sub>ij</sub>，引用数字1-9及其倒数作为标度，表示如下：</p>
+				<img src="/static/img/w-14.jpg">
+				<p>最后，一般而言，作n(n-1)/2次两两判断是必要的。有人认为把所有元素都和某个元素比较，即只作n-1次比较就可以了。这种作法的弊病在于，任何一个判断的失误均可导致不合理的排序，而个别判断的失误对于难以定量的系统往往是难以避免的。因此进行n(n-1)/2次比较可以提供更多的信息，通过各种不同角度的反复比较，导出一个合理的排序。</p>		
+				<p>但是，进行n(n-1)/2次两两判断并能从根本上杜绝主观赋值的弊端。判断矩阵仍然需要由专家根据其专业知识和经验给出，尚未找到更好的办法解决这一问题（模糊综合评价法存在同样的问题，在下文介绍）。指标的判断矩阵可由指标所属的评价者给出。</p>
+				<p>（2）层次单排序</p>
+				<p>判断矩阵A对应于最大特征值λ<sub>max</sub>的特征向量W，经归一化后即为同一层次相应因素对于上一层次某因素相对重要性的排序权值，这一过程称为层次单排序。有两种方法进行层次单排序，规范列平均法和几何平均法。</p>
+				<p>1）规范列平均法</p>
+				<img src="/static/img/w-22.jpg">
+				<p>2）几何平均法</p>
+				<img src="/static/img/w-24.jpg">
+				<p>（3）一致性检验</p>
+				<p>当比较结果的前后完全一致，那么矩阵 满足：</p>
+				<img src="/static/img/w-25.jpg">
+				<p>即n阶正互反矩阵A为一致矩阵，当且仅当其最大特征根λ<sub>max</sub>=n。当A在一致性上存在误差时必有λ<sub>max</sub>>n，且误差越大，(λ<sub>max</sub>-n)值越大。</p>
+				<p>那么对判断矩阵的一致性检验步骤具体如下：</p>
+				<img src="/static/img/w-26.jpg">
+		</div>
+	</div>
+<script type="text/javascript" src="/static/js/jquery.js"></script>
+<script type="text/javascript" src="/static/js/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="/static/js/easyui-lang-zh_CN.js" ></script>
+</body>
+</html>
+

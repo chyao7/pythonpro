@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>企业信息化绩效评价系统</title>
+    <link href="/static/themes/bootstrap/easyui.css" rel="stylesheet" />
+    <link href="/static/themes/icon.css" rel="stylesheet" />
+    <link href="/static/css/admin.css" rel="stylesheet" />
+    <style>
+        .hidden{
+            display: none;
+        }
+    </style>
+</head>
+<body class="easyui-layout" data-options="fit:true,scroll:'no'">
+    <div data-options="region:'north',border:false" split = 'true' style="overflow:hidden;height:75px; background: #87CEFA;">
+        <p>
+            <span><img src="/static/img/logo2.png" style="height: 35px;margin: 0 0 20px 0;" /></span>
+            <span><img src="/static/img/logo3.png" style="height: 55px;margin: 0 0 20px 0;" /></span>
+            <span style="margin: 30px 20px;float: right;">{{ huanying }}
+                <a target="_blank" href="http://127.0.0.1:8000/evasys/login/"><u>{{ login }}</u></a>{{ ors }}
+                <a target="_blank" href="http://127.0.0.1:8000/evasys/register/"><u>{{ register }}</u></a>
+                <a target="_blank" href="http://127.0.0.1:8000/evasys/login/" class="easyui-linkbutton" style="font-size: smaller">切换用户</a>
+            </span>
+        </p>
+    </div>
+    <div data-options="region:'west',split:true,title:'导航菜单'" style="width: 230px;">
+        <div id = 'acc' class="easyui-accordion" data-options="fit:true,border:false">
+            <div title="评价模型描述" data-options="selected:true,iconCls:'icon-select'">
+                <div style="margin: 5px">
+                    <ul id = 'tt' class="easyui-tree" data-options="animate:true,lines:true">
+                        <li data-options="iconCls:'icon-group'">
+                            <span>可拓评价模型</span>
+                            <ul>
+                                <li data-options="iconCls:'icon-group',url:'/evasys/moddescribe/',">
+                                    <span>模型描述</span>
+                                </li>
+                                <li data-options="iconCls:'icon-group',url:'/evasys/modevaluation'">
+                                    <span>模型评价</span>
+                                </li>
+                                <li data-options="iconCls:'icon-group',url:'/evasys/modscope/'">
+                                    <span>适用范围</span>
+                                </li>
+                                <li data-options="iconCls:'icon-group',url:'/evasys/modalgorithm/'">
+                                    <span>模型算法</span>
+                                </li>
+                    		</ul>
+						</li>
+						<li data-options="state:'closed',iconCls:'icon-group'">
+                            <span>其他评价模型</span>
+                            <ul>
+                                <li data-options="iconCls:'icon-group',url:'/index/',">
+                                    <span>模型描述</span>
+                                </li>
+                                <li data-options="iconCls:'icon-group',url:'http://www.baidu.com'">
+                                    <span>模型评价</span>
+                                </li>
+                                <li data-options="iconCls:'icon-group'">
+                                    <span>适用范围</span>
+                                </li>
+                                <li data-options="iconCls:'icon-group'">
+                                    <span>模型算法</span>
+                                </li>
+                    		</ul>
+						</li>
+                    </ul>
+                </div>
+            </div>
+            <div title="  评价权重算法描述">
+                <div style="margin: 5px">
+                    <ul  class="tree easyui-tree" data-options="animate:true,lines:true">
+                        <li data-options="iconCls:'icon-group'">
+                            <span>可拓优度法</span>
+                            <ul>
+                                <li data-options="iconCls:'icon-group',url:'/evasys/EXEMtheory/'">
+                                    <span>可拓优度法基本原理</span>
+                                </li>
+                                <li data-options="iconCls:'icon-group',url:'/evasys/EXEMfeature/'">
+                                    <span>可拓优度法特征与适用场合</span>
+                                </li>
+                                <li data-options="iconCls:'icon-group',url:'/evasys/EXEMmodel/'">
+                                    <span>可拓优度法模型与算法</span>
+                                </li>
+                            </ul>
+                        </li>
+                        <li data-options="state:'closed',iconCls:'icon-group'">
+                            <span>熵权法</span>
+                            <ul>
+                                <li data-options="iconCls:'icon-group',url:'/evasys/EWMtheory/'">
+                                    <span>熵权法基本原理</span>
+                                </li>
+                                <li data-options="iconCls:'icon-group',url:'/evasys/EWMfeature/'">
+                                    <span>熵权法特征与适用场合</span>
+                                </li>
+                                <li data-options="iconCls:'icon-group',url:'/evasys/EWMmodel/'">
+                                    <span>熵权法模型与算法</span>
+                                </li>
+                            </ul>
+                        </li>
+                        <li data-options="state:'closed',iconCls:'icon-group'">
+                            <span>层次分析法</span>
+                            <ul>
+                                <li data-options="iconCls:'icon-group',url:'/evasys/AHPtheory/'">
+                                    <span>层次分析法基本原理</span>
+                                </li>
+                                <li data-options="iconCls:'icon-group',url:'/evasys/AHPfeature/'">
+                                    <span>层次分析法特征与适用场合</span>
+                                </li>
+                                <li data-options="iconCls:'icon-group',url:'/evasys/AHPmodel/'">
+                                    <span>层次分析法模型与算法</span>
+                                </li>
+                            </ul>
+                        </li>
+                        <li data-options="state:'closed',iconCls:'icon-group'">
+                            <span>组合法</span>
+                            <ul>
+                                <li data-options="iconCls:'icon-group',url:'/evasys/CMtheory/'">
+                                    <span>组合法基本原理</span>
+                                </li>
+                                <li data-options="iconCls:'icon-group',url:'/evasys/CMfeature/'">
+                                    <span>组合法特征与适用场合</span>
+                                </li>
+                                <li data-options="iconCls:'icon-group',url:'/evasys/CMmodel/'">
+                                    <span>组合法模型与算法</span>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div title="  评价指标体系构建">
+                <div style="margin: 5px">
+                    <ul class="tree easyui-tree" data-options="animate:true,lines:true">
+                        <li data-options="iconCls:'icon-group',url:'/evasys/defindex/'">
+                            <span>系统默认评价指标体系</span>
+                        </li>
+                        <li data-options="iconCls:'icon-group',url:'/evasys/chanindex/'">
+                            <span>根据模板修改指标体系</span>
+                        </li>
+                        <li data-options="iconCls:'icon-group',url:'/evasys/creaindex/'">
+                            <span>用户自定义评价指标体系</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div title="  评价指标量值获取" >
+                <div style="margin: 5px">
+                    <ul class="tree easyui-tree {{ hidden }}" data-options="animate:true,lines:true">
+                        <li data-options="iconCls:'icon-group',url:'/evasys/indexval/'">
+                            <span>录入评价指标量值</span>
+                        </li>
+                        <li data-options="iconCls:'icon-group',url:'/evasys/getexcel/'">
+                            <span>Excel表格导入评价指标量值</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div title="  评价指标量值计算" >
+                <div style="margin: 5px">
+                    <ul  class="tree easyui-tree {{ hidden }}" data-options="animate:true,lines:true">
+                        <li data-options="iconCls:'icon-group',url:'/evasys/calculate/'">
+                            <span>计算</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div title="评价结果可视化展示">
+                <div style="margin: 5px">
+                    <ul class="tree easyui-tree {{ hidden }}" data-options="animate:true,lines:true">
+                        <li data-options="iconCls:'icon-group',url:'/evasys/resshow/'">
+                            <span>结果展示</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div title="  系统管理" data-options = "iconCls:'icon-settings'">
+                <div style="margin: 5px">
+                    <ul class="tree easyui-tree {{ hidden }}" data-options="animate:true,lines:true">
+                        <li data-options="state:'closed',iconCls:'icon-group'">
+                            <span>  用户管理</span>
+                            <ul>
+                                <li data-options="iconCls:'icon-group',url:'/evasys/Usercenter/'">
+                                    <span>用户信息</span>
+                                <li data-options="iconCls:'icon-group',url:'/evasys/email_info/'">
+                                    <span>邮箱管理</span>
+                                <li data-options="iconCls:'icon-group',url:'/evasys/code_info/'">
+                                    <span>密码管理</span>
+                            </ul>
+
+                        </li>
+
+                        <li data-options="state:'closed',iconCls:'icon-group',url:'/evasys/company_info/'">
+                            <span>用户关联企业管理</span>
+                        </li>
+                        <li data-options="state:'closed',iconCls:'icon-group'">
+                            <span>用户反馈管理</span>
+                            <ul>
+                                <li data-options="iconCls:'icon-group',url:'/evasys/user_feedback/'">
+                                    <span>用户反馈</span>
+                                <li data-options="iconCls:'icon-group',url:'/evasys/historical_eval/'">
+                                    <span>历史反馈</span>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div data-options="region:'south',border:false" style="height: 23px;">
+        <div class="footer">南京大学工程管理学院</div>
+    </div>
+    <div id="mainPanle" data-options="region:'center'">
+    	<div id="tabs" class="easyui-tabs"  fit="true" border="false">
+			<div title="欢迎使用"  data-options="iconCls:'icon-house'," style="padding:20px;overflow:hidden;" id="home">
+			<h1>欢迎使用企业信息化绩效评价系统</h1>
+                <h1><br></h1>
+			<h2>系统介绍:</h2>
+			<h3 style="background-color: #F0F8FF;">&nbsp;&nbsp;&nbsp;&nbsp;<br><br><br><br><br><br></h3>
+                <h1><br></h1>
+			<h2>开发团队:</h2>
+			<h3 style="background-color: #F0F8FF;">&nbsp;&nbsp;&nbsp;&nbsp;<br><br><br><br><br></h3>
+			</div>
+		</div>
+        <div id="tabs" class="easyui-tabs" data-options="tools:'#tab-tools',fit:true,border:false" >
+            <div title="主页" data-options="iconCls:'icon-house'" style="padding: 10px;">主页</div>
+        </div> -->
+        <div id="tab-tools">
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'" onclick="addTab()"></a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-remove'" onclick="removeTab()"></a>
+        </div>
+    </div>
+    <div id="mm" class="easyui-menu" style="width: 150px;">
+        <div id="refresh" data-options="iconCls:'icon-arrow_refresh'">刷新</div>
+        <div class="menu-sep"></div>
+        <div id="close">关闭</div>
+        <div id="closeall">全部关闭</div>
+        <div id="closeother">除此之外全部关闭</div>
+        <div class="menu-sep"></div>
+        <div id="closeright">当前页右侧全部关闭</div>
+        <div id="closeleft">当前页左侧全部关闭</div>
+        <div class="menu-sep"></div>
+        <div id="exit">退出</div>
+    </div>
+<script type="text/javascript" src="/static/js/jquery.js"></script>
+<script type="text/javascript" src="/static/js/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="/static/js/easyui-lang-zh_CN.js" ></script>
+<script type="text/javascript" src="/static/js/common.js" ></script>
+</body>
+</html>

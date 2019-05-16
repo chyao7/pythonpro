@@ -1,0 +1,1 @@
+C:\Users\bigdata\AppData\Local\Continuum\Anaconda2\envs\py36

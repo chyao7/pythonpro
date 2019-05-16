@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>企业信息化绩效评价系统</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="/static/css/bootstrap-table.css" />
+	<link href="/static/css/defindex.css" rel="stylesheet" />
+    <link href="/static/themes/icon.css" rel="stylesheet" />
+    <link href="/static/css/bootstrap-editable.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+    <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">提示</h4>
+				</div>
+				<div class="modal-body">请选择添加项！
+                    <select class="form-control" id="select">
+	                </select>
+                </div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                    <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal" onclick="save()"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true" ></span>保存</button>
+                </div>
+            </div>
+		</div>
+	</div>
+    <div class="modal fade" id="Modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">提示</h4>
+				</div>
+				<div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">请选择评价阶段:</label>
+                            <select  class="form-control" id="select1">
+                                <option value="0">选型阶段</option>
+                                <option value="1">试用阶段</option>
+                                <option value="2">租用阶段</option>
+                            </select>
+                        </div>
+                        <div class="form-group"><label for="recipient-name" class="control-label">请选择评价者:</label>
+                            <select id="select2" class="form-control">
+                                <option value="0">管理者</option>
+                                <option value="1">内控者</option>
+                                <option value="2">使用者</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">请输入一级评价指标:</label>
+                            <input type="text" id="senior_index" placeholder="请输入一级评价指标"  class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">请输入二级评价指标:</label>
+                            <input type="text" id="junior_index" placeholder="请输入二级评价指标"  class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">请输入说明:</label>
+                            <input type="text" id="detail" placeholder="说明"  class="form-control">
+                        </div>
+                        <span id="erro_msg" style="color: red"></span>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                            <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal" onclick="newindex()"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true" ></span>保存</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+		</div>
+	</div>
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">提示</h4>
+				</div>
+				<div class="modal-body">确认提交么？</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					<input id="btn2" class="btn btn-primary"  data-dismiss="modal" type="submit" value="确认提交" onclick="upload()">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container" style="position: relative">
+		<h1>用户自定义评价指标体系</h1>
+		<button data-toggle="modal" data-target= "#myModal" style="position: absolute;top:80px;left: 260px" class="btn btn-primary btn-large" id = "btn1" onclick="confirmindex()">提交</button>
+		<div class = 'form-group' style="position: absolute;left: 360px;top: 80px;">
+			<div class="col-lg-5">
+				<select name="" id="company" class="form-control" style="font-size: 16px;padding: 0 5px">
+                    <option value="" class="form-group">请选择企业</option>
+                    {% for item in companylist %}
+                    <option value="{{ item.company_id }}" class="form-group">{{ item.company_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div id="toolbar" class="btn-group">
+            <button data-toggle="modal" data-target= "#Modal1" class="btn btn-primary btn-large" style= "position: absolute;top:-19px; right: 365px" id = "btn2">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增</button>
+            <button data-toggle="modal" data-target= "#Modal" class="btn btn-default btn-large" id = "btn1" style= "position: absolute;top:-19px; right: 270px" onclick="addrow()">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>撤销删除
+            </button>
+            <button id="btn_delete" type="button" class="btn btn-default" style= "position: absolute;top:-19px; right: 205px" onclick="deleterow()">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+            </button>
+        </div>
+		<table id = "table" data-bind="myBootstrapTable:$root">
+			<thead>
+				<tr>
+					<th data-field="state" data-checkbox="true" ></th>
+					<th data-field = "period_name " >评价阶段名称</th>
+					<th data-field="evaluator_name">评价者名称</th>
+					<th data-field="senior_index_name">一级指标名称</th>
+					<th data-field="junior_index_name">二级指标名称</th>
+					<th data-field="memo" >说明</th>
+				</tr>
+			</thead>
+			<tbody>
+                {% for item in def_index %}
+				<tr  id={{ item.junior_index_id }}>
+					<td></td>
+					<td>{{ item.period_name }}</td>
+					<td>{{ item.evaluator_name }}</td>
+					<td>{{ item.senior_index_name}}</td>
+					<td>{{ item.junior_index_name }}</td>
+					<td>{{ item.memo }}</td>
+				</tr>
+				{% endfor %}
+				{% for item in res_list %}
+				<tr id={{ item.junior_index_id }}>
+					<td></td>
+					<td>{{ item.period_name }}</td>
+					<td>{{ item.evaluator_name }}</td>
+					<td>{{ item.senior_index_name}}</td>
+					<td>{{ item.junior_index_name }}</td>
+					<td>{{ item.memo }}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+<script>
+    function confirmindex() {
+        var companyid = $('#company').val();
+        if(companyid===""){
+            alert('请选择企业！');
+            $('#btn1').attr('data-toggle','none')
+        }
+        else{
+            $('#btn1').attr('data-toggle','modal')
+        }
+    }
+	function upload() {
+	    var trs = document.getElementsByTagName("tr");
+	    var companyid = $('#company').val();
+        var data = {};
+        for(var i=1,rows=trs.length; i<rows; i++){
+            var tr = trs[i];
+            var id = tr.id;
+            if(tr.style.display != "none" ){
+                for(var j=1,cells=tr.cells.length; j< cells-1; j++){
+                if(!data[id]){
+                    data[id] = new Array();
+                }
+                data[id][j-1] = tr.cells[j].innerHTML;
+                }
+            }
+        }
+	    $.ajax({
+				url:"/evasys/creaindex/",
+				type:"POST",
+				data:{"data":JSON.stringify(data),"type":"自定义评价指标体系","companyid":companyid},
+				headers:{"X-CSRFtoken": $.cookie("csrftoken")},
+				success:function (arg) {
+				    alert("提交成功")
+				},
+				error:function () {
+				    alert("尊敬的游客您好，若要使用本系统完整功能请您注册或登录！")
+                }
+
+			})
+    }
+
+	function mergeCellsByField(tableID, colList) {
+    var table = $("#"+tableID);
+	var columns = colList.split(",");
+	var rowlen = table.bootstrapTable("getData").length;
+	for(j = 0;j<columns.length;j++){
+    	var feature = columns[j];
+    	for(i = 0;i < rowlen;i = i+p){
+    		curtext = table.bootstrapTable("getData")[i][feature];
+			for(m = i+1;i<rowlen;m++){
+    			nextext = table.bootstrapTable("getData")[m][feature];
+				p = 1;
+				if(curtext === nextext){
+    				p = p+1
+				}
+				else{
+    				break
+				}
+			}
+			table.bootstrapTable("mergeCells",{index:i,field:feature,rolspan:p})
+		}
+	}
+	}
+	var $table = $('#table');
+		$(function(){
+			$('#toolbar').find('select').change(function () {
+				$table.bootstrapTable('destroy').bootstrapTable({
+					exportDataType: $(this).val()
+				});
+			});
+		});
+    function deleterow() {
+        var table = $("#table");
+        table.find("tr[class = 'selected']").hide()
+
+    }
+    function newindex(){
+
+        var evaluator_id_id=$('#select2').val();
+        var period_id_id=$('#select1').val();
+        var junior_index_name=$('#junior_index').val();
+        var senior_index_name=$('#senior_index').val();
+        $.ajax({
+            url: "/evasys/newindex/",
+            type: 'POST',
+            data: { 'junior_index_name': junior_index_name,'senior_index_name':senior_index_name,'period_id_id':period_id_id, 'evaluator_id_id':evaluator_id_id, 'memo': $('#detail').val()},
+            headers:{"X-CSRFtoken": $.cookie("csrftoken")},
+            success: function(data){
+                var obj = JSON.parse(data);
+                if(obj.status){
+                    location.reload();
+                    alert("自定义成功")
+                }else{
+                    $('#erro_msg').text(obj.error);
+                    alert(obj.error)
+                }
+            }
+        })
+    }
+
+    function addrow() {
+        var trs = document.getElementsByTagName("tr");
+        var length = trs.length;
+        for(i = 0;i<length;i++){
+            tr = trs[i];
+            if(tr.style.display == "none" ){
+                var tds = tr.cells;
+                var len = tds.length;
+                var texts = "";
+                for(j = 0;j<len-1;j++){
+                    var text = "    "+tds[j].innerText+"     ";
+                    texts = texts+text
+                }
+
+               $("#select").append("<option value="+i+">"+texts+"</option>");
+            }
+
+        }
+    }
+    function save() {
+        var val = $("#select").val();
+        var trs = document.getElementsByTagName("tr");
+        var num = parseInt(val);
+        var tr = trs[num];
+        $(tr).removeClass("selected");
+        tr.style.display = "table-row";
+        $("#select").find("option").remove();
+    }
+</script>
+<script type="text/javascript" src="/static/js/jquery.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-table.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-table-zh-CN.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-table-export.js"></script>
+<script type="text/javascript" src="/static/js/tableExport.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-table-toolbar.js"></script>
+<script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-editable.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-table-editable.js"></script>
+<script type="text/javascript" src="/static/js/creaindex.js" ></script>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>企业信息化绩效评价系统</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="/static/css/bootstrap-table.css" />
+	<link href="/static/css/defindex.css" rel="stylesheet" />
+    <link href="/static/themes/icon.css" rel="stylesheet" />
+    <link href="/static/css/bootstrap-editable.css" rel="stylesheet" type="text/css"/>
+    <link href="/static/css/usercenter.css" rel="stylesheet" />
+
+</head>
+<body>
+
+<section>
+		<div class="ydc-content-slide ydc-body" id="body">
+			<div class="ydc-flex">
+				<div class="ydc-column ydc-column-8" >
+					<div  class="ydc-release-content"  >
+
+                    <div class="ydc-tabPanel ydc-tabPanel-release" id="d2"  name="dv" >
+							<div class="ydc-release-tab-head" style="margin-bottom: 50px">
+								<ul>
+		 							<li class="hit">关联企业</li>
+								</ul>
+							</div>
+
+                    <div class="panel-group" id="accordion" style="width: 80%;margin: 0 auto">
+                        {% for row in companys %}
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion"
+                                           href="#collapse{{ row }}">
+                                            关联企业-{{ row.company_name }}
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapse{{ row }}" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                          <div class=" ydc-pane-clear" style="display:block;">
+
+                                                            <div id="1" name="div" >
+                                                                    <table class="zebra" style="height: auto">
+                                                                        <tr>
+                                                                            <td style="font-weight:bold;">企业代码</td>
+                                                                            <td>{{ row.liscom_code }}</td>
+                                                                            <td style="font-weight:bold;">所属行业</td>
+                                                                            <td>{{ row.industry_id_id }}</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td style="font-weight:bold;">企业热线</td>
+                                                                            <td>{{ row.telephone }}</td>
+                                                                            <td style="font-weight:bold;">企业网址</td>
+                                                                            <td>{{ row.website }}</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td style="font-weight:bold;">企业地址</td>
+                                                                            <td colspan="3">{{ row.company_address }}</td>
+
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td style="font-weight:bold;">企业简介</td>
+                                                                            <td colspan="3">{{ row.introduction }}</td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </div>
+                                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                        <div>
+                                <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" style="position: relative">
+                                        <div class="modal-content" >
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                <h4 class="modal-title" id="myModalLabel">新增关联企业</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id = 'defaultForm' class="form-horizontal"  method = 'post' enctype="multipart/form-data">
+                                                   <div class = 'form-group'>
+                                                        <label for="companyname" class=" col-lg-3 control-label" style="width: 30%;float: left">企业名称：</label>
+                                                        <div class="col-lg-5 " style="width:70%;float: right;padding-right:60px ;" >
+                                                            <input type="text" id="companyname" class="form-control" name = 'companyname'  placeholder="请输入您所属企业名称" >
+                                                        </div>
+                                                       <span style="color: red;font-size:14px">{{ error_msg }}</span>
+                                                    </div>
+
+                                                    <div class = 'form-group'>
+                                                        <label for="liscom_code" class="col-lg-3 control-label" style="width: 30%;float: left">上市公司代码：</label>
+                                                        <div class="col-lg-5 " style="width:70%;float: right;padding-right:60px ;">
+                                                            <input type="text" id="liscom_code" class="form-control" name = 'liscom_code'  placeholder="请输入上市公司代码" value="000000">
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class = 'form-group'>
+                                                        <label for="industry_id" class="col-lg-3 control-label" style="width: 30%;float: left">所属行业：</label>
+                                                        <div class="col-lg-5" style="width:70%;float: right;padding-right:60px ;">
+                                                            <select class="form-control" name = 'industry' id="industry">
+                                                                {% for row in industry %}
+                                                                    <option  value= "{{ row.industry_id }}">{{ row.industry_name }}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class = 'form-group'>
+                                                        <label for="company_address" class="col-lg-3 control-label" style="width: 30%;float: left">企业地址：</label>
+                                                        <div class="col-lg-5" style="width:70%;float: right;padding-right:60px ;">
+                                                            <input type="text" id="company_address" class="form-control" name = 'company_address'  placeholder="请输入企业地址">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class = 'form-group'>
+                                                        <label for="telephone" class="col-lg-3 control-label" style="width: 30%;float: left">企业热线：</label>
+                                                        <div class="col-lg-5" style="width:70%;float: right;padding-right:60px ;">
+                                                            <input type="tel" id="telephone" class="form-control" name = 'telephone'  placeholder="请输入企业热线电话">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class = 'form-group'>
+                                                        <label for="introduction" class="col-lg-3 control-label" style="width: 30%;float: left">简介：</label>
+                                                        <div class="col-lg-5" style="width:70%;float: right;padding-right:60px ;">
+                                                            <input type="text" id="introduction" class="form-control" name = 'introduction'  placeholder="请输入公司简介">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class = 'form-group'>
+                                                        <label for="website" class="col-lg-3 control-label" style="width: 30%;float: left">网址：</label>
+                                                        <div class="col-lg-5" style="width:70%;float: right;padding-right:60px ;">
+                                                            <input type="text" id="website" class="form-control" name = 'website'  placeholder="请输入公司网址，可以为空">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                                                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true" ></span>提交</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                        <h4 class="modal-title" id="myModalLabel">删除关联企业</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="form-group"><label for="recipient-name" class="control-label">请选择删除企业:</label>
+                                                        <select class="form-control" id="company_del">
+                                                            {% for row in companys%}
+                                                                    <option  value= "{{ row.company_id }}">{{ row.company_name }}</option>
+                                                                {% endfor %}
+                                                        </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                                                        <button type="submit" class="btn btn-primary" onclick="company_del()">确认删除</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                <div class="bt-bottom">
+                                     <button data-toggle="modal" data-target= "#add" class="btn btn-primary btn-large" id = "btn1">
+                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增</button>
+                                    <button data-toggle="modal" data-target= "#myModal"  class="btn btn-primary btn-large" id = "btn1" >
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true" data-toggle="modal" data-target= "#Modal2"></span>删除
+                                    </button>
+
+                                </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                </div>
+                </div>
+        </div>
+</section>
+<script>
+
+function company_del(){
+
+    var company_id=$('#company_del').val();
+    var id=2;
+    $.ajax({
+        url: "/evasys/company_del/",
+        type: 'POST',
+        data: { 'company_del_id': company_id,'id':id},
+        headers:{"X-CSRFtoken": $.cookie("csrftoken")},
+        success: function(data){
+            console.log(data);
+            if(data){
+                location.reload()
+                alert(data);
+
+            }else{
+                alert("删除失败")
+            }
+
+        }
+    });
+
+}
+
+</script>
+
+<script type="text/javascript" src="/static/js/jquery.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-table.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-table-zh-CN.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-table-export.js"></script>
+<script type="text/javascript" src="/static/js/tableExport.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-table-toolbar.js"></script>
+<script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-editable.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-table-editable.js"></script>
+<script type="text/javascript" src="/static/js/bootstrapValidator.js"></script>
+<script type="text/javascript" src="/static/js/register.js" ></script>
+
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>结果可视化</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css" />
+</head>
+<body>
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">一级指标详情</h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+    <h2 style="position: absolute;left: 350px">绩效评价结果</h2>
+    <div class="container" style="position: relative;top:50px;">
+
+        <button class="btn btn-default" style="position: absolute;top:50px;right: 30px">下载为PDF文件</button>
+
+        <h4 style="position: absolute;top: 50px;left: 55px">评价方法：{{ obj.algorithm_id.algorithm_name }}</h4>
+        <h4 style="position: absolute;top: 80px;left: 55px">本次计算总体得分为{{ obj.final_res }}，评分为{{ final_index }}。</h4>
+        <h4 style="margin:120px 30px 30px 40px" class="Heading 4">总体展示:</h4>
+            <div style="" id="as">
+
+                <img width="400px" src="data:image/png;base64,{{ obj.period_plot }}" />
+                <img width="400px" src="data:image/png;base64,{{ obj.evaluator_plot }}" />
+            </div>
+        <div>
+{#            <span style="position: absolute;top: 550px;left: 50px display: inline-block"><h4 class="btn btn-primary">一级指标表</h4></span>#}
+            <h4 class="" style="display: inline-block;position: absolute;left: 50px">一级指标详情</h4>
+                <select name="" id="{{ obj.val_res_id }}" class="form-control" style="display: inline-block;position: absolute; width: 150px;left: 160px" onchange="showimg()">
+                    <option value="">请选择一级指标</option>
+                    {% for row in senior_index %}
+                    <option value="{{ row }}" >{{ row }}</option>
+                    {% endfor %}
+                </select>
+        </div>
+        <img width="800px" src="data:image/png;base64,{{ obj.senior_detail_plot }}" />
+{#        <div id="main3" style="width: 600px;height:400px;margin: 100px auto"></div>#}
+    </div>
+
+<script>
+    function showimg() {
+        var senior_obj = $('select');
+        $('.modal-body').empty();
+        $.ajax({
+            url:"/evasys/resvisualization/",
+            type:"POST",
+            data:{"senior_name":senior_obj.val(),"val_res_id":senior_obj.attr('id')},
+            headers:{"X-CSRFtoken": $.cookie("csrftoken")},
+            success:function (arg) {
+                $('.modal-body').append("<img width='100%' src='data:image/png;base64,"+arg+"'/>");
+                $('#myModal').modal('show')
+            },
+            error:function () {
+                alert("失败")
+            }
+        });
+    }
+</script>
+<script src="/static/js/echarts.common.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.js"></script>
+<script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+</body>
+
+</html>

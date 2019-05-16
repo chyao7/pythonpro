@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>企业信息化绩效评价系统</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="/static/css/bootstrap-table.css" />
+	<link href="/static/css/defindex.css" rel="stylesheet" />
+    <link href="/static/themes/icon.css" rel="stylesheet" />
+    <link href="/static/css/bootstrap-editable.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+    <div class="modal fade" id="Modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="">
+		<div class="modal-dialog" style="width: 80%;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h2 class="modal-title" id="myModalLabel">指标量值查看</h2>
+				</div>
+				<div class="modal-body">
+                    <table id = "table1">
+                        <thead>
+                            <tr>
+                                <th data-field = "period_name " >评价阶段名称</th>
+                                <th data-field="evaluator_name">评价者名称</th>
+                                <th data-field="senior_index_name">一级指标名称</th>
+                                <th data-field="junior_index_name">二级指标名称</th>
+                                <th data-field="val" >二级指标量值</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+		            </table>
+                </div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭</button>
+                </div>
+            </div>
+		</div>
+	</div>
+	<div class="modal fade" id="Modal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h2 class="modal-title" id="myModalLabel">提示：请选择评价模型与权重算法</h2>
+				</div>
+				<div class="modal-body">
+                    <span>选择评价模型</span>
+                    <select class="form-control" id="select1">
+                        <option>可拓评价模型</option>
+                        <option>其他评价模型</option>
+                    </select>
+                    <span>选择权重算法</span>
+
+                    <select class="form-control" id="select2">
+                        {% for item in algorithms %}
+                        <option value="{{ item.algorithm_id }}">{{ item.algorithm_name }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <span>类型</span>
+                    <span type="text" class="form-control" id="datetype"></span>
+                    <span>数据时间</span>
+                    <span type="text" class="form-control" id="datatime"></span>
+                </div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<input id="btn2" class="btn btn-primary"  data-dismiss="modal" type="submit" value="确认计算" onclick="calculate()">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container" style="position: relative">
+
+        <div id="toolbar" class="btn-group"  style="position: relative;right: 500px">
+            <button id="btn_cal" type="button" class="btn btn-primary" data-toggle="modal"  onclick="pre_cal()">
+                <span class="glyphicon glyphicon-expand" aria-hidden="true"></span>计算
+            </button>
+
+            <button id="btn_delete" type="button" class="btn btn-primary" onclick="deleterow()">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+            </button>
+        </div>
+		<table id = "table">
+			<thead>
+				<tr>
+					<th data-field="state" data-checkbox="true" ></th>
+                    <th data-field = "calculate" >查看</th>
+                    <th data-field = "datetype " >类型</th>
+                    <th data-field = "cat" >指标体系</th>
+                    <th data-field = "company" >企业名称</th>
+                    <th data-field = "datatime " >数据时间</th>
+                    <th data-field = "time" >量值录入时间</th>
+					<th data-field="creator">创建人</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for item in res_list %}
+				<tr  id = "{{ item.val_model_id }}">
+					<td></td>
+					<td><a id = "{{ item.val_model_id }}" class="btn btn-primary btn-large" data-toggle="modal" data-target= "#Modal1" onclick="showtable(this)"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span> 查看 </a></td>
+					<td>{{ item.get_datetype_display  }}</td>
+					<td>{{ item.ind_model_cat_id  }}</td>
+					<td>{{ item.company_id.company_name  }}</td>
+					<td>{{ item.datatime }}</td>
+                    <td>{{ item.ctime }}</td>
+					<td>{{ item.val_model_name}}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+<script>
+    function deleterow() {
+        var table = $("table");
+        var table_1 = document.getElementById("table");
+        var tbody = table_1.children[1];
+        var trs = tbody.children;
+        var ids = {};
+        for(var i = 0;i<trs.length;i++ ){
+            var tr = trs[i];
+            if(tr.getAttribute("class") ==='selected'){
+                ids[i] = tr.children[2].firstChild.id;
+            }
+        }
+        $.ajax({
+            url:"/evasys/calculate/",
+            type:"POST",
+            data:{"ids":JSON.stringify(ids)},
+            headers:{"X-CSRFtoken": $.cookie("csrftoken")},
+            success:function (arg) {
+                alert("删除成功")
+            },
+            error:function () {
+                alert("删除失败")
+            }
+        });
+        table.find("tr[class = 'selected']").hide();
+    }
+    function pre_cal() {
+        var datatime = $('#datatime');
+        var datetype = $('#datetype');
+        datatime.empty();
+        datetype.empty();
+        var trs = $("tr[class = 'selected']");
+        datetype.append(trs.find("td:eq(2)").first().text());
+        for(var j=0;j<trs.length;j++) {
+            datatime.append($(trs[j]).find("td:eq(5)").text()+' '+' ');
+        }
+        var modal = $('#btn_cal');
+        if(trs.length===0){
+            alert('请选择要计算的项目');
+            modal.attr("data-target","none");
+            return false
+        }
+        var z = trs.find("td:eq(3)").first().text();
+        console.log(z);
+        for(var i=1;i<trs.length;i++){
+            if(z!==$(trs[i]).find("td:eq(3)").text()){
+                modal.attr("data-target","none");  //jquery方法
+                alert('多套指标的指标体系必须一致！');
+                return false
+            }
+            else{
+                z=$(trs[i]).find("td:eq(3)").text();
+            }
+        }
+        modal.attr("data-target","#Modal2");
+        if(trs.length===1){
+            $('#select2').find("option[value!=1]").attr('disabled','disabled').append("<p>(不可选)</p>")
+        }
+        else{
+            $('#select2').find('option').removeAttr('disabled').find('p').remove()
+        }
+        }
+    function calculate() {
+        var alg_id = $("#select2").find('option:selected').val();
+        var trs = $("tr[class = 'selected']");
+        var cal_ids=[];
+        for(var i=0;i<trs.length;i++){
+            cal_ids[i]=trs[i].id
+        }
+        console.log(cal_ids);
+        $.ajax({
+            url:"/evasys/calculate/",
+            type:"POST",
+            data:{"cal_ids":JSON.stringify(cal_ids),"alg_id":alg_id},
+            headers:{"X-CSRFtoken": $.cookie("csrftoken")},
+            success:function (arg) {
+                alert("计算成功")
+            },
+            error:function () {
+               alert("计算失败")
+            }
+        });
+        setTimeout(function(){
+        },6000)
+        }
+    function showtable(target) {
+        var index = target.parentNode.parentNode.getAttribute("data-index");
+        var res_data = {{ datas|safe }};
+        var table = document.getElementById("table1");
+        $("#table1  tr:not(:first)").empty("");
+        for(i = 0;i<res_data.length;i++){
+            if(i == index){
+                data_rec = res_data[i];
+                for(var m in data_rec){
+                    var newTr = table.insertRow();
+                    console.log(data_rec[m].length);
+                    for(j=0;j< data_rec[m].length;j++){
+                        var newTd = newTr.insertCell();
+                        newTd.innerText= data_rec[m][j];
+                    }
+
+                }
+            }
+        }
+        }
+</script>
+<script type="text/javascript" src="/static/js/jquery.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-table.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-table-zh-CN.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-table-export.js"></script>
+<script type="text/javascript" src="/static/js/tableExport.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-table-toolbar.js"></script>
+<script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="/static/js/calculate.js" ></script>
+</body>
+</html>

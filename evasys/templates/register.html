@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>注册</title>
+<meta charset="UTF-8" />
+<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/register.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/bootstrapValidator.css" />
+<link rel="stylesheet" type="text/css" href="/static/css/bootstrap-select.min.css" />
+</head>
+
+<body>
+
+<div class="container">
+<div class="row">
+	<div class="col-lg-8 col-lg-offset-2">
+		 <div class="panel panel-default">
+            <div class="panel-heading">
+                <h1 class="panel-title">注册</h1>
+            </div>
+    <div class="panel-body">
+	<form id = 'defaultForm' class="form-horizontal" action="/evasys/register/" method = 'post' enctype="multipart/form-data">
+		<div class="page-header">
+	        <h4>企业信息</h4>
+	    </div>
+
+		<div class = 'form-group'>
+			<label for="companyname" class="col-lg-3 control-label">企业名称：</label>
+			<div class="col-lg-5">
+				<input type="text" id="companyname" class="form-control" name = 'companyname'  placeholder="请输入您所属企业名称">
+			</div>
+		</div>
+
+		<div class = 'form-group'>
+			<label for="liscom_code" class="col-lg-3 control-label">上市公司代码：</label>
+			<div class="col-lg-5">
+				<input type="text" id="liscom_code" class="form-control" name = 'liscom_code'  placeholder="请输入上市公司代码" value="000000">
+			</div>
+		</div>
+
+
+		<div class = 'form-group'>
+			<label for="industry_id" class="col-lg-3 control-label">所属行业：</label>
+			<div class="col-lg-5">
+				<select class="form-control" name = 'industry'>
+					{% for row in industry %}
+					 <option  value= "{{ row.industry_id }}">{{ row.industry_name }}</option>
+					{% endfor %}
+				</select>
+			</div>
+		</div>
+
+		<div class = 'form-group'>
+			<label for="company_address" class="col-lg-3 control-label">企业地址：</label>
+			<div class="col-lg-5">
+				<input type="text" id="company_address" class="form-control" name = 'company_address'  placeholder="请输入企业地址">
+			</div>
+		</div>
+		
+		<div class = 'form-group'>
+			<label for="telephone" class="col-lg-3 control-label">企业热线：</label>
+			<div class="col-lg-5">
+				<input type="tel" id="telephone" class="form-control" name = 'telephone'  placeholder="请输入企业热线电话">
+			</div>
+		</div>
+
+		<div class = 'form-group'>
+			<label for="introduction" class="col-lg-3 control-label">简介：</label>
+			<div class="col-lg-5">
+				<input type="text" id="introduction" class="form-control" name = 'introduction'  placeholder="请输入公司简介">
+			</div>
+		</div>
+		
+		<div class = 'form-group'>
+			<label for="website" class="col-lg-3 control-label">网址：</label>
+			<div class="col-lg-5">
+				<input type="text" id="website" class="form-control" name = 'website'  placeholder="请输入公司网址，可以为空">
+			</div>
+		</div>
+
+		<div class = 'form-group'>
+			<label for="docs" class="col-lg-3 control-label">企业介绍文档：</label>
+			<span class="col-lg-5">
+				<input type="file" id="docs" class="form-control" name = 'docs'  placeholder="请输入企业热线电话">
+			</span>
+		</div>
+
+		<div class = 'form-group'>
+			<label for="imgs" class="col-lg-3 control-label">企业logo图片：</label>
+			<span class="col-lg-5">
+				<input type="file" id="imgs" class="form-control" name = 'imgs'  placeholder="请输入企业热线电话">
+			</span>
+		</div>
+
+		<div class="page-header">
+	        <h4>用户信息</h4>
+	    </div>
+		
+		<div class = 'form-group'>
+			<label for="username" class="col-lg-3 control-label">用户名：</label>
+			<div class="col-lg-5">
+				<input type="text" id="username" class="form-control" name = 'username'  placeholder="请输入您的用户名" value="">
+				<span style="color: red;">{{ users_msg }}</span>
+			</div>
+                <div style="color: gray;font-size: smaller">用户名只支持中文，<br/>长度为二到十之间</div>
+		</div>
+
+
+		<div class = 'form-group'>
+			<label for="password" class="col-lg-3 control-label">密码：</label>
+			<div class="col-lg-5">
+				<input type="password" id="password" class="form-control" name = 'password'  placeholder="请输入您的密码">
+			</div>
+		</div>
+
+		<div class = 'form-group'>
+			<label for="repassword" class="col-lg-3 control-label">确认密码:</label>
+			<div class="col-lg-5">
+				<input type="password" id="repassword" class="form-control" name = 'repassword'  placeholder="请再次输入您的密码">
+			</div>
+		</div>
+
+        <div class = 'form-group'>
+			<label for="email" class="col-lg-3 control-label">邮箱：</label>
+			<div class="col-lg-5">
+				<input type="email" id="email" class="form-control" name="email" placeholder="请输入您的邮箱">
+			</div>
+		</div>
+
+        <div class = 'form-group'>
+			<label for="emailcode" class="col-lg-3 control-label">邮箱验证码：</label>
+			<div class="col-lg-5">
+                <div class="input-group m-bot15">
+                    <input type="text" id="emailcode" class="form-control" name = 'emailcode'  placeholder="请输入邮箱验证码">
+                    <span class="input-group-btn">
+                             <input type="button" id="sendecode"  value="获取验证码" class="btn btn-success">
+                    </span>
+
+                </div>
+
+                <span style="color: red;">{{ err_msg }}</span>
+			</div>
+                <div style="color: gray;font-size: smaller">&nbsp;&nbsp;验证码区分大小写</div>
+		</div>
+		
+		<div class="form-ggroup">
+			<div class="col-lg-1 col-lg-offset-4">
+				<button type="submit" id = 'btn' class="btn btn-primary">注册</button>
+				<span style="color: red;">{{ error_msg }}</span>
+			</div>
+		</div>
+	</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+     function sendecode() {
+         var email=$('#email').val();
+         var username = $('#username').val();
+         if (email==="") {
+            alert("email不能为空")
+        } else{
+            $.ajax({
+                url: "/evasys/sendecode/",
+                type: 'POST',
+                data: { 'email':email,'user_name':username},
+                headers:{"X-CSRFtoken": $.cookie("csrftoken")},
+                success:function (msg) {
+                    console.log(msg);
+                    alert(msg);
+                }
+            })
+         }
+
+    }
+    var wait=60;
+    function time(o) {
+        if (wait === 0) {
+            o.removeAttribute("disabled");
+            o.value="获取验证码";
+            wait = 60;
+        } else {
+            o.setAttribute("disabled", true);
+            o.value=wait+"秒后可重发";
+            wait--;
+            setTimeout(function() {
+                time(o)
+            },
+            1000)
+        }
+    }
+    document.getElementById("sendecode").onclick=function(){sendecode(this);time(this)}
+</script>
+<script type="text/javascript" src="/static/js/jquery.js"></script>
+<script type="text/javascript" src="/static/js/bootstrapValidator.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/js/easyui-lang-zh_CN.js" ></script>
+<script type="text/javascript" src="/static/js/register.js" ></script>
+<script type="text/javascript" src="/static/js/bootstrap-select.js" ></script>
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-table.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-table-zh-CN.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-table-export.js"></script>
+<script type="text/javascript" src="/static/js/tableExport.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-table-toolbar.js"></script>
+<script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-editable.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-table-editable.js"></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../code/.idea/code.iml" filepath="$PROJECT_DIR$/../code/.idea/code.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/evasys.iml" filepath="$PROJECT_DIR$/.idea/evasys.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../数据可视化 (2)/.idea/数据可视化.iml" filepath="$PROJECT_DIR$/../数据可视化 (2)/.idea/数据可视化.iml" />
+    </modules>
+  </component>
+</project>
