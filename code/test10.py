@@ -6,4 +6,4 @@ for i in range(10):
         if j>7:
             break
         else:
-            print("j=d%",j)
+            print("j=%d" % j)
