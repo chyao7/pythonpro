@@ -30,7 +30,7 @@ six==1.12.0
 sympy==1.4
 tqdm==4.31.1
 urllib3==1.24.2
-websockets==7.0
+websockets==9.1
 xlrd==1.2.0
 xpinyin==0.5.6
 #pip freeze > requirements.txt
